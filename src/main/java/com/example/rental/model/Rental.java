@@ -23,7 +23,7 @@ public class Rental {
     private String location;
     private LocalDateTime created_at;
     private LocalDateTime updated_at;
-    @OneToMany(mappedBy = "rental")
+    @OneToMany(mappedBy = "rental",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Room_Category> roomCategory;
 }

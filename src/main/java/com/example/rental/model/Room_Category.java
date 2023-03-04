@@ -17,11 +17,10 @@ public class Room_Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
     private Long price;
     private Integer no_of_rooms;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Rental rental;
 
 

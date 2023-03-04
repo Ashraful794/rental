@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.Transient;
+
 @RestController
 @RequestMapping("/api/rental")
 public class RentalController {
 
     @Autowired
-    private RentalService rentalService;
+    private  RentalService rentalService;
 
     @PostMapping()
     public ResponseEntity addRental(@RequestBody Rental request)
