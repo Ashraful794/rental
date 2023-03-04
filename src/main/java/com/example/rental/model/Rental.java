@@ -1,12 +1,10 @@
 package com.example.rental.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -21,9 +19,9 @@ public class Rental {
     private Long id;
     private String name;
     private String location;
-    private LocalDateTime created_at;
-    private LocalDateTime updated_at;
-    @OneToMany(mappedBy = "rental",cascade = CascadeType.ALL)
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    @OneToMany(mappedBy = "rental")
     @JsonIgnore
-    private List<Room_Category> roomCategory;
+    private List<RoomCategory> roomCategory;
 }

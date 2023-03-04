@@ -1,44 +1,54 @@
 package com.example.rental.controller;
 
-import com.example.rental.model.Rental;
-import com.example.rental.model.Room_Category;
+import com.example.rental.dto.RoomCategoryData;
+import com.example.rental.dto.RoomCategoryDto;
+import com.example.rental.model.RoomCategory;
 import com.example.rental.service.RoomCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/room_category")
+@RequestMapping("/api/roomcategory")
 public class RoomCategoryController {
 
     @Autowired
     RoomCategoryService roomCategoryService;
 
-    @PostMapping()
-    public ResponseEntity addRoomCategory(@RequestBody Room_Category request)
+    @PostMapping("/add")
+    public ResponseEntity<RoomCategoryDto> addRoomCategory(@RequestBody RoomCategoryDto request)
     {
-        return ResponseEntity.ok(this.roomCategoryService.addRoomCategory(request));
+        return new ResponseEntity(this.roomCategoryService.addRoomCategory(request),HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/getall")
     public ResponseEntity getRoomCategory()
     {
-        return ResponseEntity.ok(this.roomCategoryService.getRoomCategory());
+        return new ResponseEntity(this.roomCategoryService.getAllRoomCategory(), HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity updateRoomCategory(Room_Category request) throws Exception
+    @PutMapping("/put")
+    public ResponseEntity updateRoomCategory(RoomCategory request) throws Exception
     {
         return ResponseEntity.ok(this.roomCategoryService.updateRoomCategory(request));
     }
-    @DeleteMapping
-    public ResponseEntity deleteRoomCategory(Room_Category request) throws Exception
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteRoomCategory(RoomCategory request) throws Exception
     {
         return ResponseEntity.ok(this.roomCategoryService.deleteRoomCategory(request));
     }
 
+    @GetMapping("/getbyid/{id}")
+    public ResponseEntity<RoomCategoryData> getRoomCategoryById(@PathVariable Long id) throws Exception
+    {
+        return new ResponseEntity(this.roomCategoryService.getRoomCategoryById(id),HttpStatus.OK);
+    }
+    @GetMapping("/getbyrentalid/{id}")
+    public ResponseEntity<RoomCategoryData> getRoomCategoryByRentalId(@PathVariable Long id) throws Exception
+    {
+        return new ResponseEntity(this.roomCategoryService.getRoomCategoryByRentalId(id),HttpStatus.OK);
+    }
 
 
 
