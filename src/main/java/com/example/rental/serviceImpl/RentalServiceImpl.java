@@ -70,26 +70,40 @@ public class RentalServiceImpl implements RentalService {
     }
 
     @Override
-    public Rental updateRental(Rental rental) throws Exception {
+    public RentalData updateRental(RentalDto rentalDto) throws Exception {
 
-        Optional<Rental> rental1 = this.rentalRepository.findById(rental.getId());
+        Optional<Rental> rental1 = this.rentalRepository.findById(rentalDto.getId());
 
 
         if (!rental1.isPresent()) {
             throw new Exception("Id not found");
         }
-        rental.setUpdatedAt(LocalDateTime.now());
-        return this.rentalRepository.save(rental);
+
+        rental1.get().setName(rentalDto.getName());
+        rental1.get().setLocation(rentalDto.getLocation());
+        rental1.get().setUpdatedAt(LocalDateTime.now());
+
+        Rental rental=this.rentalRepository.save(rental1.get());
+
+        RentalData rentalData=new RentalData();
+        rentalData.setId(rental.getId());
+        rentalData.setName(rental.getName());
+        rentalData.setLocation(rental.getLocation());
+
+
+        return rentalData;
     }
 
     @Override
-    public String deleteRental(Rental rental) throws Exception {
-        Optional<Rental> rental1 = this.rentalRepository.findById(rental.getId());
-        if (!rental1.isPresent()) {
+    public String deleteRental(RentalDto rentalDto) throws Exception {
+
+        Optional<Rental> rental = this.rentalRepository.findById(rentalDto.getId());
+
+        if (!rental.isPresent()) {
             throw new Exception("Id not found");
         }
 
-        this.rentalRepository.delete(rental);
+        this.rentalRepository.delete(rental.get());
         return "Deleted";
 
     }

@@ -1,6 +1,7 @@
 package com.example.rental.controller;
 
 import com.example.rental.dto.RoomCategoryData;
+import com.example.rental.dto.RoomCategoryDataList;
 import com.example.rental.dto.RoomCategoryDto;
 import com.example.rental.model.RoomCategory;
 import com.example.rental.service.RoomCategoryService;
@@ -29,14 +30,14 @@ public class RoomCategoryController {
     }
 
     @PutMapping("/put")
-    public ResponseEntity updateRoomCategory(RoomCategory request) throws Exception
+    public ResponseEntity<RoomCategoryData> updateRoomCategory(RoomCategoryDto request) throws Exception
     {
-        return ResponseEntity.ok(this.roomCategoryService.updateRoomCategory(request));
+        return new ResponseEntity(this.roomCategoryService.updateRoomCategory(request),HttpStatus.OK);
     }
     @DeleteMapping("/delete")
-    public ResponseEntity deleteRoomCategory(RoomCategory request) throws Exception
+    public ResponseEntity deleteRoomCategory(RoomCategoryDto request) throws Exception
     {
-        return ResponseEntity.ok(this.roomCategoryService.deleteRoomCategory(request));
+        return new ResponseEntity(this.roomCategoryService.deleteRoomCategory(request),HttpStatus.OK);
     }
 
     @GetMapping("/getbyid/{id}")
@@ -45,7 +46,7 @@ public class RoomCategoryController {
         return new ResponseEntity(this.roomCategoryService.getRoomCategoryById(id),HttpStatus.OK);
     }
     @GetMapping("/getbyrentalid/{id}")
-    public ResponseEntity<RoomCategoryData> getRoomCategoryByRentalId(@PathVariable Long id) throws Exception
+    public ResponseEntity<RoomCategoryDataList> getRoomCategoryByRentalId(@PathVariable Long id) throws Exception
     {
         return new ResponseEntity(this.roomCategoryService.getRoomCategoryByRentalId(id),HttpStatus.OK);
     }

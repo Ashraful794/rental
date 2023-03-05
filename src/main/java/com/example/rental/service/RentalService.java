@@ -12,9 +12,9 @@ public interface RentalService {
 
     RentalDataList getAllRental();
 
-    Rental updateRental(Rental rental) throws Exception;
+    RentalData updateRental(RentalDto rentalDto) throws Exception;
 
-    String deleteRental(Rental rental) throws Exception;
+    String deleteRental(RentalDto rentalDto) throws Exception;
 
     RentalData getRental(Long id) throws Exception;
 }

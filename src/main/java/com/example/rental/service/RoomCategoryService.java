@@ -12,7 +12,7 @@ public interface RoomCategoryService {
     RoomCategoryDataList getAllRoomCategory();
     RoomCategoryData getRoomCategoryById(Long id) throws Exception;
     RoomCategoryDataList getRoomCategoryByRentalId(Long id) throws Exception;
-    RoomCategory updateRoomCategory(RoomCategory roomCategory) throws Exception;
-    String deleteRoomCategory(RoomCategory roomCategory) throws Exception;
+    RoomCategoryData updateRoomCategory(RoomCategoryDto roomCategoryDto) throws Exception;
+    String deleteRoomCategory(RoomCategoryDto roomCategoryDto) throws Exception;
 
 }

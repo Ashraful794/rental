@@ -19,8 +19,7 @@ public class RoomCategoryServiceImpl implements RoomCategoryService {
 
     @Autowired
     RoomCategoryRepository roomCategoryRepository;
-
-
+    
     @Override
     public RoomCategoryDto addRoomCategory(RoomCategoryDto roomCategoryDto) {
 
@@ -29,6 +28,7 @@ public class RoomCategoryServiceImpl implements RoomCategoryService {
         Rental rental=new Rental();
 
         rental.setId(roomCategoryDto.getRentalId());
+
         roomCategory.setName(roomCategoryDto.getName());
         roomCategory.setPrice(roomCategoryDto.getPrice());
         roomCategory.setNo_of_rooms(roomCategory.getNo_of_rooms());
@@ -115,24 +115,39 @@ public class RoomCategoryServiceImpl implements RoomCategoryService {
     }
 
     @Override
-    public RoomCategory updateRoomCategory(RoomCategory roomCategory) throws Exception {
+    public RoomCategoryData updateRoomCategory(RoomCategoryDto roomCategoryDto) throws Exception {
 
-        Optional<RoomCategory> room_category=this.roomCategoryRepository.findById(roomCategory.getId());
-        if (!room_category.isPresent())
+        Optional<RoomCategory> roomcategory=this.roomCategoryRepository.findById(roomCategoryDto.getId());
+
+        if (!roomcategory.isPresent())
         {
             throw new Exception("Id Not Found");
         }
-        return this.roomCategoryRepository.save(roomCategory);
+
+        roomcategory.get().setNo_of_rooms(roomCategoryDto.getNo_of_rooms());
+        roomcategory.get().setPrice(roomCategoryDto.getPrice());
+        roomcategory.get().setName(roomCategoryDto.getName());
+
+        RoomCategory roomCategory=this.roomCategoryRepository.save(roomcategory.get());
+
+        RoomCategoryData roomCategoryData=new RoomCategoryData();
+        roomCategoryData.setId(roomCategory.getId());
+        roomCategoryData.setName(roomCategory.getName());
+        roomCategoryData.setPrice(roomCategory.getPrice());
+        roomCategoryData.setNo_of_rooms(roomCategory.getNo_of_rooms());
+
+        return roomCategoryData;
     }
 
     @Override
-    public String deleteRoomCategory(RoomCategory roomCategory) throws Exception {
-        Optional<RoomCategory> room_category=this.roomCategoryRepository.findById(roomCategory.getId());
+    public String deleteRoomCategory(RoomCategoryDto roomCategoryDto) throws Exception {
+        Optional<RoomCategory> room_category=this.roomCategoryRepository.findById(roomCategoryDto.getId());
+
         if (!room_category.isPresent())
         {
             throw new Exception("Id Not Found");
         }
-        this.roomCategoryRepository.delete(roomCategory);
+        this.roomCategoryRepository.delete(room_category.get());
         return "Deleted";
     }
 }

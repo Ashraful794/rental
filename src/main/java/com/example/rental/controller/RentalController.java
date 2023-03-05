@@ -30,15 +30,15 @@ public class RentalController {
         return new ResponseEntity(this.rentalService.getAllRental(), HttpStatus.OK);
     }
     @PutMapping("/put")
-    public ResponseEntity updateRental(@RequestBody Rental rental) throws Exception
+    public ResponseEntity<RentalData> updateRental(@RequestBody RentalDto rentalDto) throws Exception
     {
-        return ResponseEntity.ok(this.rentalService.updateRental(rental));
+        return new ResponseEntity(this.rentalService.updateRental(rentalDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity deleteRental(@RequestBody Rental rental) throws Exception
+    public ResponseEntity<String> deleteRental(@RequestBody RentalDto rentalDto) throws Exception
     {
-        return ResponseEntity.ok(this.rentalService.deleteRental(rental));
+        return new ResponseEntity(this.rentalService.deleteRental(rentalDto),HttpStatus.OK);
     }
 
     @GetMapping("/getbyid/{id}")
